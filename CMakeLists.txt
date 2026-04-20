@@ -68,6 +68,9 @@ add_subdirectory(core)
 # add SDL utility library
 add_subdirectory(sdl)
 
+# add engine library
+add_subdirectory(engine)
+
 # add examples
 if (MSQ_BUILD_EXAMPLES)
     include(msq_example)
