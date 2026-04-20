@@ -1,0 +1,48 @@
+---
+Language: Cpp
+BasedOnStyle: WebKit
+AlignAfterOpenBracket: true
+AlignArrayOfStructures: Right
+AlignConsecutiveBitFields: Consecutive
+AlignOperands: AlignAfterOperator
+AlignTrailingComments:
+  Kind: Always
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AlwaysBreakBeforeMultilineStrings: true
+BreakTemplateDeclarations: Yes
+BinPackArguments: false
+BinPackParameters: OnePerLine
+BreakBeforeBraces: Attach
+BreakInheritanceList: AfterComma
+ColumnLimit: 120
+ConstructorInitializerIndentWidth: 0
+Cpp11BracedListStyle: true
+FixNamespaceComments: true
+KeepEmptyLines:
+  AtStartOfBlock: false
+  AtEndOfFile: false
+InsertNewlineAtEOF: true
+InsertTrailingCommas: Wrapped
+IntegerLiteralSeparator:
+  Binary: 4
+  BinaryMinDigits: 0
+  Decimal: 3
+  DecimalMinDigits: 5
+  Hex: 0
+  HexMinDigits: 0
+NamespaceIndentation: None
+PackConstructorInitializers: Never
+PenaltyBreakAssignment: 200
+PenaltyReturnTypeOnItsOwnLine: 1000
+QualifierAlignment: Left
+SeparateDefinitionBlocks: Always
+ShortNamespaceLines: 0
+SpaceInEmptyBraces: Never
+SpaceAfterCStyleCast: true
+SpacesInLineCommentPrefix:
+  Maximum: 1
+Standard: c++17
+...
+
