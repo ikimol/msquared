@@ -5,10 +5,14 @@
 set(MSQ_TEST_TARGET_NAME "tests")
 
 add_executable(${MSQ_TEST_TARGET_NAME}
-               ${CMAKE_CURRENT_SOURCE_DIR}/dummy_tests.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/core/math_tests.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/core/rect2_tests.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/core/size2_tests.cpp
                )
 
 target_link_libraries(${MSQ_TEST_TARGET_NAME} PRIVATE
+                      msq::core
+                      msq::engine
                       Catch2::Catch2WithMain
                       )
 

@@ -13,7 +13,8 @@ add_library(${MSQ_CORE_TARGET_NAME} STATIC)
 add_library(msq::core ALIAS ${MSQ_CORE_TARGET_NAME})
 
 target_sources(${MSQ_CORE_TARGET_NAME} PRIVATE
-               ${CMAKE_CURRENT_SOURCE_DIR}/src/dummy.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/color.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/colors.cpp
                )
 
 # add public header files
