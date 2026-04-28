@@ -55,6 +55,9 @@ set(MSQ_CMAKE_THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
 # create targets
 # ------------------------------------------------------------------------------
 
+# add core library
+add_subdirectory(core)
+
 # add examples
 if (MSQ_BUILD_EXAMPLES)
     include(msq_example)
