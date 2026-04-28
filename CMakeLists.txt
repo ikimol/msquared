@@ -27,6 +27,7 @@ message(STATUS "Platform: ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION} (${MSQ_SY
 # build options
 # ------------------------------------------------------------------------------
 
+option(MSQ_USE_VENDORED_SDL "Enable to use the vendored SDL libraries" OFF)
 option(MSQ_BUILD_EXAMPLES "Enable to build the example targets" OFF)
 option(MSQ_BUILD_TESTS "Enable to build the tests" OFF)
 
@@ -41,6 +42,12 @@ include(msq_warnings)
 # ------------------------------------------------------------------------------
 # third party libraries
 # ------------------------------------------------------------------------------
+
+if (NOT MSQ_USE_VENDORED_SDL)
+    find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
+    find_package(SDL3_image REQUIRED CONFIG REQUIRED)
+    find_package(SDL3_ttf REQUIRED CONFIG REQUIRED)
+endif ()
 
 # build third party libraries
 add_subdirectory(third_party)
@@ -57,6 +64,9 @@ set(MSQ_CMAKE_THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
 
 # add core library
 add_subdirectory(core)
+
+# add SDL utility library
+add_subdirectory(sdl)
 
 # add examples
 if (MSQ_BUILD_EXAMPLES)
