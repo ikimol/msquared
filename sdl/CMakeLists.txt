@@ -13,7 +13,13 @@ add_library(${MSQ_SDL_TARGET_NAME} STATIC)
 add_library(msq::sdl ALIAS ${MSQ_SDL_TARGET_NAME})
 
 target_sources(${MSQ_SDL_TARGET_NAME} PRIVATE
-               ${CMAKE_CURRENT_SOURCE_DIR}/src/dummy.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/iostream.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/renderer.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/surface.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/text.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/text_engine.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/texture.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/window.cpp
                )
 
 # add public header files
