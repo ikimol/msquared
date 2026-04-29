@@ -3,6 +3,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 add_subdirectory(catch2)
+add_subdirectory(imgui)
 add_subdirectory(shard)
 
 if (MSQ_USE_VENDORED_SDL)

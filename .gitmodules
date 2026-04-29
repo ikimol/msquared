@@ -4,3 +4,6 @@
 [submodule "shard"]
 	path = third_party/shard
 	url = git@github.com:ikimol/shard.git
+[submodule "imgui"]
+	path = third_party/imgui/src
+	url = git@github.com:ocornut/imgui.git
