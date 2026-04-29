@@ -22,16 +22,8 @@ target_sources(${MSQ_SDL_TARGET_NAME} PRIVATE
                ${CMAKE_CURRENT_SOURCE_DIR}/src/window.cpp
                )
 
-# add public header files
-target_include_directories(${MSQ_SDL_TARGET_NAME} PUBLIC
-                           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                           $<INSTALL_INTERFACE:include>
-                           )
-
-# add private header files
-target_include_directories(${MSQ_SDL_TARGET_NAME} PRIVATE
-                           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-                           )
+msq_target_add_public_headers(${MSQ_SDL_TARGET_NAME})
+msq_target_add_private_headers(${MSQ_SDL_TARGET_NAME})
 
 # link dependencies
 target_link_libraries(${MSQ_SDL_TARGET_NAME} PUBLIC
@@ -44,16 +36,7 @@ target_link_libraries(${MSQ_SDL_TARGET_NAME} PUBLIC
 # ------------------------------------------------------------------------------
 
 msq_target_enable_warnings(${MSQ_SDL_TARGET_NAME})
-
-# add compile definitions
-
-list(APPEND MSQ_SDL_COMPILE_DEFINITIONS
-     $<$<CONFIG:Debug>:MSQ_DEBUG>
-     )
-
-target_compile_definitions(${MSQ_SDL_TARGET_NAME} PUBLIC
-                           ${MSQ_SDL_COMPILE_DEFINITIONS}
-                           )
+msq_target_set_compile_definitions(${MSQ_SDL_TARGET_NAME})
 
 # ------------------------------------------------------------------------------
 # installation

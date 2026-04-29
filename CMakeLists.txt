@@ -37,7 +37,7 @@ option(MSQ_BUILD_TESTS "Enable to build the tests" OFF)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-include(msq_warnings)
+include(msq_target)
 
 # ------------------------------------------------------------------------------
 # third party libraries

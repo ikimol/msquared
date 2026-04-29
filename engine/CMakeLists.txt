@@ -16,16 +16,8 @@ target_sources(${MSQ_ENGINE_TARGET_NAME} PRIVATE
                ${CMAKE_CURRENT_SOURCE_DIR}/src/dummy.cpp
                )
 
-# add public engine header files
-target_include_directories(${MSQ_ENGINE_TARGET_NAME} PUBLIC
-                           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                           $<INSTALL_INTERFACE:include>
-                           )
-
-# add private engine header files
-target_include_directories(${MSQ_ENGINE_TARGET_NAME} PRIVATE
-                           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-                           )
+msq_target_add_public_headers(${MSQ_ENGINE_TARGET_NAME})
+msq_target_add_private_headers(${MSQ_ENGINE_TARGET_NAME})
 
 # link dependencies
 target_link_libraries(${MSQ_ENGINE_TARGET_NAME} PUBLIC
@@ -38,20 +30,11 @@ target_link_libraries(${MSQ_ENGINE_TARGET_NAME} PUBLIC
 # ------------------------------------------------------------------------------
 
 msq_target_enable_warnings(${MSQ_ENGINE_TARGET_NAME})
+msq_target_set_compile_definitions(${MSQ_ENGINE_TARGET_NAME})
 
 set_target_properties(${MSQ_ENGINE_TARGET_NAME} PROPERTIES
                       DEBUG_POSTFIX "-d"
                       )
-
-# add compile definitions
-
-list(APPEND MSQ_ENGINE_COMPILE_DEFINITIONS
-     $<$<CONFIG:Debug>:MSQ_DEBUG>
-     )
-
-target_compile_definitions(${MSQ_ENGINE_TARGET_NAME} PUBLIC
-                           ${MSQ_ENGINE_COMPILE_DEFINITIONS}
-                           )
 
 # ------------------------------------------------------------------------------
 # installation
