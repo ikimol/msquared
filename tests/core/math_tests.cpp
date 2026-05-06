@@ -7,7 +7,7 @@
 
 namespace Matchers = Catch::Matchers;
 
-TEST_CASE("math") {
+TEST_CASE("core_math", "[core]") {
     SECTION("angle") {
         SECTION("construction") {
             msq::Angle a1;

@@ -5,6 +5,7 @@
 set(MSQ_TEST_TARGET_NAME "tests")
 
 add_executable(${MSQ_TEST_TARGET_NAME}
+               # -- core
                ${CMAKE_CURRENT_SOURCE_DIR}/core/math_tests.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/core/rect2_tests.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/core/size2_tests.cpp

@@ -4,7 +4,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("size2") {
+TEST_CASE("core_size2", "[core]") {
     SECTION("construction") {
         msq::Size2i s1;
         REQUIRE(s1.w == 0);
