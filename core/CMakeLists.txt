@@ -16,6 +16,7 @@ target_sources(${MSQ_CORE_TARGET_NAME} PRIVATE
                ${CMAKE_CURRENT_SOURCE_DIR}/src/assert.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/color.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/colors.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/event_queue.cpp
                )
 
 msq_target_add_public_headers(${MSQ_CORE_TARGET_NAME})
@@ -24,6 +25,8 @@ msq_target_add_private_headers(${MSQ_CORE_TARGET_NAME})
 # link dependencies
 target_link_libraries(${MSQ_CORE_TARGET_NAME} PUBLIC
                       shard::common
+                      shard::meta
+                      shard::signal
                       )
 
 # ------------------------------------------------------------------------------
