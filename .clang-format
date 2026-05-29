@@ -35,6 +35,7 @@ IntegerLiteralSeparator:
 NamespaceIndentation: None
 PackConstructorInitializers: Never
 PenaltyBreakAssignment: 200
+PenaltyBreakScopeResolution: 1100
 PenaltyReturnTypeOnItsOwnLine: 1000
 QualifierAlignment: Left
 SeparateDefinitionBlocks: Always
