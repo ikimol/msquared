@@ -22,6 +22,7 @@ msq_target_add_private_headers(${MSQ_ENGINE_TARGET_NAME})
 # link dependencies
 target_link_libraries(${MSQ_ENGINE_TARGET_NAME} PUBLIC
                       msq::core
+                      msq::ecs
                       msq::sdl
                       ImGui
                       )

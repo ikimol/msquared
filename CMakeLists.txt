@@ -65,6 +65,9 @@ set(MSQ_CMAKE_THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
 # add core library
 add_subdirectory(core)
 
+# add ECS library
+add_subdirectory(ecs)
+
 # add SDL utility library
 add_subdirectory(sdl)
 

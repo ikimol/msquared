@@ -10,10 +10,16 @@ add_executable(${MSQ_TEST_TARGET_NAME}
                ${CMAKE_CURRENT_SOURCE_DIR}/core/math_tests.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/core/rect2_tests.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/core/size2_tests.cpp
+               # -- ecs
+               ${CMAKE_CURRENT_SOURCE_DIR}/ecs/component_mask_tests.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/ecs/entity_tests.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/ecs/events_tests.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/ecs/query_tests.cpp
                )
 
 target_link_libraries(${MSQ_TEST_TARGET_NAME} PRIVATE
                       msq::core
+                      msq::ecs
                       msq::engine
                       Catch2::Catch2WithMain
                       )
