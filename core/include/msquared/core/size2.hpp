@@ -43,12 +43,12 @@ struct Size2 {
         h = p_h;
     }
 
-    /// Get an element of the vector by index
+    /// Get an element of the size by index
     T& operator[](std::size_t index) { return const_cast<T&>(std::as_const(*this).operator[](index)); }
 
-    /// Get an element of the vector by index
+    /// Get an element of the size by index
     const T& operator[](std::size_t index) const {
-        assert(index < 2);
+        MSQ_ASSERT(index < 2, "element index out of range");
         const T* data[] = {&w, &h};
         return *data[index];
     }

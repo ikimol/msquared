@@ -31,21 +31,21 @@ struct Point2 {
     : x(v.x)
     , y(v.y) {}
 
-    /// Set both the x and y components to zero
+    /// Set both the x and y elements to zero
     void reset() { set(0, 0); }
 
-    /// Set both the x and y components to the values
+    /// Set both the x and y elements to the values
     void set(T p_x, T p_y) {
         x = p_x;
         y = p_y;
     }
 
-    /// Get an element of the vector by index
+    /// Get an element of the point by index
     T& operator[](std::size_t index) { return const_cast<T&>(std::as_const(*this).operator[](index)); }
 
-    /// Get an element of the vector by index
+    /// Get an element of the point by index
     const T& operator[](std::size_t index) const {
-        assert(index < 2);
+        MSQ_ASSERT(index < 2, "element index out of range");
         const T* data[] = {&x, &y};
         return *data[index];
     }

@@ -2,7 +2,11 @@
 
 #pragma once
 
+#include "msquared/core/assert.hpp"
+
+#include <cstddef>
 #include <cstdint>
+#include <utility>
 
 namespace msq {
 
@@ -32,6 +36,18 @@ struct Color {
     ///
     /// \param alpha The alpha value in the range [0, 1]
     [[nodiscard]] Color with_alpha(float alpha) const;
+
+    /// Get a component of the color by index
+    std::uint8_t& operator[](std::size_t index) {
+        return const_cast<std::uint8_t&>(std::as_const(*this).operator[](index));
+    }
+
+    /// Get a component of the color by index
+    const std::uint8_t& operator[](std::size_t index) const {
+        MSQ_ASSERT(index < 4, "component index out of range");
+        const std::uint8_t* data[] = {&r, &g, &b, &a};
+        return *data[index];
+    }
 
     std::uint8_t r = 0;
     std::uint8_t g = 0;

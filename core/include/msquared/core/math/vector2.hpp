@@ -2,7 +2,8 @@
 
 #pragma once
 
-#include <cassert>
+#include "msquared/core/assert.hpp"
+
 #include <cmath>
 #include <cstddef>
 #include <type_traits>
@@ -30,13 +31,13 @@ struct Vector2 {
     : x(other.x)
     , y(other.y) {}
 
-    /// Check if any of the x or y components are zero
+    /// Check if any of the x or y elements are zero
     bool is_zero() const { return x == 0 || y == 0; }
 
-    /// Set both the x and y components to zero
+    /// Set both the x and y elements to zero
     void reset() { set(0, 0); }
 
-    /// Set both the x and y components to the values
+    /// Set both the x and y elements to the values
     void set(T p_x, T p_y) {
         x = p_x;
         y = p_y;
@@ -47,7 +48,7 @@ struct Vector2 {
 
     /// Get an element of the vector by index
     const T& operator[](std::size_t index) const {
-        assert(index < 2);
+        MSQ_ASSERT(index < 2, "element index out of range");
         const T* data[] = {&x, &y};
         return *data[index];
     }
