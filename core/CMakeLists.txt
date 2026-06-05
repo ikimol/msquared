@@ -17,6 +17,7 @@ target_sources(${MSQ_CORE_TARGET_NAME} PRIVATE
                ${CMAKE_CURRENT_SOURCE_DIR}/src/color.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/colors.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/event_queue.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/transform.cpp
                )
 
 msq_target_add_public_headers(${MSQ_CORE_TARGET_NAME})

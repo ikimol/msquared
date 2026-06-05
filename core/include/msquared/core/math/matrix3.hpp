@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "msquared/core/math/point2.hpp"
 #include "msquared/core/math/vector2.hpp"
 #include "msquared/core/math/vector3.hpp"
 
@@ -86,6 +87,24 @@ Matrix3<T> operator*(const Matrix3<T>& lhs, const Matrix3<T>& rhs) {
         lhs(2, 0) * rhs(0, 0) + lhs(2, 1) * rhs(1, 0) + lhs(2, 2) * rhs(2, 0),
         lhs(2, 0) * rhs(0, 1) + lhs(2, 1) * rhs(1, 1) + lhs(2, 2) * rhs(2, 1),
         lhs(2, 0) * rhs(0, 2) + lhs(2, 1) * rhs(1, 2) + lhs(2, 2) * rhs(2, 2),
+    };
+}
+
+template <typename T>
+Point2<T> operator*(const Matrix3<T>& m, const Point2<T>& p) {
+    // translation is applied (w = 1)
+    return {
+        m(0, 0) * p.x + m(0, 1) * p.y + m(0, 2),
+        m(1, 0) * p.x + m(1, 1) * p.y + m(1, 2),
+    };
+}
+
+template <typename T>
+Vector2<T> operator*(const Matrix3<T>& m, const Vector2<T>& v) {
+    // translation is ignored (w = 0)
+    return {
+        m(0, 0) * v.x + m(0, 1) * v.y,
+        m(1, 0) * v.x + m(1, 1) * v.y,
     };
 }
 

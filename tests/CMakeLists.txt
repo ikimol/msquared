@@ -10,6 +10,7 @@ add_executable(${MSQ_TEST_TARGET_NAME}
                ${CMAKE_CURRENT_SOURCE_DIR}/core/math_tests.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/core/rect2_tests.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/core/size2_tests.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/core/transform_tests.cpp
                # -- ecs
                ${CMAKE_CURRENT_SOURCE_DIR}/ecs/component_mask_tests.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/ecs/entity_tests.cpp
