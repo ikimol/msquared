@@ -70,6 +70,11 @@ using Point2u = Point2<unsigned int>;
 // operators
 
 template <typename T>
+Point2<T> operator-(const Point2<T>& p) {
+    return {-p.x, -p.y};
+}
+
+template <typename T>
 bool operator==(const Point2<T>& lhs, const Point2<T>& rhs) {
     return lhs.x == rhs.x && lhs.y == rhs.y;
 }
