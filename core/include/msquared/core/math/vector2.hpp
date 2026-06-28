@@ -53,6 +53,9 @@ struct Vector2 {
         return *data[index];
     }
 
+    /// Calculate the dot product of the vectors
+    T dot(const Vector2& other) { return x * other.x + y * other.y; }
+
     /// Get the squared length of the vector
     T length_sq() const { return x * x + y * y; }
 
@@ -72,11 +75,6 @@ using Vector2i = Vector2<int>;
 using Vector2u = Vector2<unsigned int>;
 
 // operators
-
-template <typename T>
-T dot(const Vector2<T>& lhs, const Vector2<T>& rhs) {
-    return lhs.x * rhs.x + lhs.y * rhs.y;
-}
 
 template <typename T>
 Vector2<T> operator-(const Vector2<T>& v) {

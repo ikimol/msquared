@@ -98,6 +98,31 @@ struct Rect2 {
 
     Point2<T> max() const { return {max_x(), max_y()}; }
 
+    /// Check whether the point is contained
+    bool contains(T p_x, T p_y) { return (p_x >= min_x()) && (p_x < max_x()) && (p_y >= min_y()) && (p_y < max_y()); }
+
+    /// Check whether the point is contained
+    bool contains(const Point2<T>& point) { return contains(point.x, point.y); }
+
+    /// Get the intersection of two rectangles
+    std::optional<Rect2> intersection(const Rect2& other) {
+        // compute the intersection boundaries
+        auto inter_min_x = std::max(min_x(), other.min_x());
+        auto inter_max_x = std::min(max_x(), other.max_x());
+        auto inter_min_y = std::max(min_y(), other.min_y());
+        auto inter_max_y = std::min(max_y(), other.max_y());
+
+        // check if the intersection has a positive non-zero area
+        if ((inter_min_x < inter_max_x) && (inter_min_y < inter_max_y)) {
+            return Rect2(inter_min_x, inter_min_y, inter_max_x - inter_min_x, inter_max_y - inter_min_y);
+        }
+
+        return std::nullopt;
+    }
+
+    /// Check if the two rectangles intersect
+    bool intersects(const Rect2& other) { return intersection(other).has_value(); }
+
     // members
 
     T x = 0;
@@ -146,43 +171,6 @@ Rect2<T>& operator-=(Rect2<T>& lhs, const Vector2<T>& rhs) {
     lhs.x -= rhs.x;
     lhs.y -= rhs.y;
     return lhs;
-}
-
-// helpers
-
-/// Check whether the point is contained
-template <typename T>
-bool contains(const Rect2<T>& rect, T p_x, T p_y) {
-    return (p_x >= rect.min_x()) && (p_x < rect.max_x()) && (p_y >= rect.min_y()) && (p_y < rect.max_y());
-}
-
-/// Check whether the point is contained
-template <typename T>
-bool contains(const Rect2<T>& rect, const Point2<T>& point) {
-    return contains(rect, point.x, point.y);
-}
-
-/// Get the intersection of two rectangles
-template <typename T>
-std::optional<Rect2<T>> intersection(const Rect2<T>& lhs, const Rect2<T>& rhs) {
-    // compute the intersection boundaries
-    auto inter_min_x = std::max(lhs.min_x(), rhs.min_x());
-    auto inter_max_x = std::min(lhs.max_x(), rhs.max_x());
-    auto inter_min_y = std::max(lhs.min_y(), rhs.min_y());
-    auto inter_max_y = std::min(lhs.max_y(), rhs.max_y());
-
-    // check if the intersection has a positive non-zero area
-    if ((inter_min_x < inter_max_x) && (inter_min_y < inter_max_y)) {
-        return Rect2<T>(inter_min_x, inter_min_y, inter_max_x - inter_min_x, inter_max_y - inter_min_y);
-    }
-
-    return std::nullopt;
-}
-
-/// Check if the two rectangles intersect
-template <typename T>
-bool intersects(const Rect2<T>& lhs, const Rect2<T>& rhs) {
-    return intersection(lhs, rhs).has_value();
 }
 
 } // namespace msq

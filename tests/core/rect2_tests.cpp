@@ -130,14 +130,14 @@ TEST_CASE("core_rect2", "[core]") {
     SECTION("contains") {
         msq::Rect2i r(0, 0, 10, 10);
 
-        REQUIRE(msq::contains(r, 0, 0));
-        REQUIRE(msq::contains(r, 5, 5));
-        REQUIRE_FALSE(msq::contains(r, 10, 5)); // max_x is exclusive
-        REQUIRE_FALSE(msq::contains(r, 5, 10)); // max_y is exclusive
-        REQUIRE_FALSE(msq::contains(r, -1, 5));
+        REQUIRE(r.contains(0, 0));
+        REQUIRE(r.contains(5, 5));
+        REQUIRE_FALSE(r.contains(10, 5)); // max_x is exclusive
+        REQUIRE_FALSE(r.contains(5, 10)); // max_y is exclusive
+        REQUIRE_FALSE(r.contains(-1, 5));
 
-        REQUIRE(msq::contains(r, msq::Point2i(3, 4)));
-        REQUIRE_FALSE(msq::contains(r, msq::Point2i(10, 10)));
+        REQUIRE(r.contains(msq::Point2i(3, 4)));
+        REQUIRE_FALSE(r.contains(msq::Point2i(10, 10)));
     }
 
     SECTION("intersection") {
@@ -145,16 +145,16 @@ TEST_CASE("core_rect2", "[core]") {
         msq::Rect2i r2(5, 5, 10, 10);
         msq::Rect2i r3(20, 20, 10, 10);
 
-        auto i = msq::intersection(r1, r2);
+        auto i = r1.intersection(r2);
         REQUIRE(i.has_value());
         REQUIRE(i->x == 5);
         REQUIRE(i->y == 5);
         REQUIRE(i->w == 5);
         REQUIRE(i->h == 5);
 
-        REQUIRE_FALSE(msq::intersection(r1, r3).has_value());
+        REQUIRE_FALSE(r1.intersection(r3).has_value());
 
-        REQUIRE(intersects(r1, r2));
-        REQUIRE_FALSE(intersects(r1, r3));
+        REQUIRE(r1.intersects(r2));
+        REQUIRE_FALSE(r1.intersects(r3));
     }
 }

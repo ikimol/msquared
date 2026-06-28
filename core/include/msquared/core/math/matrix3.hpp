@@ -152,11 +152,11 @@ Matrix3<T> Matrix3<T>::inverse() const {
     auto& b = *reinterpret_cast<const Vector3<T>*>(data[1].data());
     auto& c = *reinterpret_cast<const Vector3<T>*>(data[2].data());
 
-    auto r0 = cross(b, c);
-    auto r1 = cross(c, a);
-    auto r2 = cross(a, b);
+    auto r0 = b.cross(c);
+    auto r1 = c.cross(a);
+    auto r2 = a.cross(b);
 
-    T inv_det = T(1) / dot(r2, c);
+    auto inv_det = T(1) / r2.dot(c);
 
     // clang-format off
     return {

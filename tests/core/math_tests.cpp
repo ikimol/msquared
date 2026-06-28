@@ -190,7 +190,7 @@ TEST_CASE("core_math", "[core]") {
             msq::Vector2i v1(3, 4);
             msq::Vector2i v2(2, 1);
 
-            auto result = msq::dot(v1, v2);
+            auto result = v1.dot(v2);
             REQUIRE(result == 10); // (3 * 2) + (4 * 1) = 10
         }
     }
@@ -312,7 +312,7 @@ TEST_CASE("core_math", "[core]") {
             msq::Vector3i v1(1, 2, 3);
             msq::Vector3i v2(4, 5, 6);
 
-            auto result = msq::dot(v1, v2);
+            auto result = v1.dot(v2);
             REQUIRE(result == 32); // 1*4 + 2*5 + 3*6 = 32
         }
 
@@ -320,14 +320,14 @@ TEST_CASE("core_math", "[core]") {
             msq::Vector3i v1(1, 0, 0);
             msq::Vector3i v2(0, 1, 0);
 
-            auto result = msq::cross(v1, v2);
+            auto result = v1.cross(v2);
             REQUIRE(result.x == 0);
             REQUIRE(result.y == 0);
             REQUIRE(result.z == 1);
 
             msq::Vector3i v3(1, 2, 3);
             msq::Vector3i v4(4, 5, 6);
-            auto result2 = msq::cross(v3, v4);
+            auto result2 = v3.cross(v4);
             REQUIRE(result2.x == -3);
             REQUIRE(result2.y == 6);
             REQUIRE(result2.z == -3);
