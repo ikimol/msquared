@@ -13,6 +13,12 @@ add_library(${MSQ_ENGINE_TARGET_NAME} SHARED)
 add_library(msq::engine ALIAS ${MSQ_ENGINE_TARGET_NAME})
 
 target_sources(${MSQ_ENGINE_TARGET_NAME} PRIVATE
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/camera.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/draw_list.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/mesh_pool.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/renderer.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/texture_pool.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/viewport.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/imgui/interop.cpp
                )
 
@@ -24,6 +30,7 @@ target_link_libraries(${MSQ_ENGINE_TARGET_NAME} PUBLIC
                       msq::core
                       msq::ecs
                       msq::sdl
+                      shard::algorithm
                       ImGui
                       )
 
