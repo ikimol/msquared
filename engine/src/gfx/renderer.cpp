@@ -2,9 +2,12 @@
 
 #include "msquared/engine/gfx/renderer.hpp"
 
-#include <limits>
+#include <msquared/sdl/color.hpp>
+#include <msquared/sdl/renderer.hpp>
 
 #include <shard/algorithm/variant_switch.hpp>
+
+#include <limits>
 
 namespace msq {
 namespace {
@@ -21,22 +24,21 @@ Renderer::Renderer(SDL_Renderer* renderer, const TexturePool& texture_pool, cons
 }
 
 void Renderer::set_clear_color(Color color) {
-    m_clear_color = color;
+    m_clear_color = color.with_alpha(1.f);
 }
 
 void Renderer::begin_frame() {
-    SDL_SetRenderDrawColor(m_renderer, m_clear_color.r, m_clear_color.g, m_clear_color.b, SDL_ALPHA_OPAQUE);
+    sdl::set_draw_color(m_renderer, m_clear_color);
     SDL_RenderClear(m_renderer);
 }
 
 void Renderer::end_frame() {
-    SDL_SetRenderViewport(m_renderer, nullptr);
+    sdl::reset_viewport(m_renderer);
     SDL_RenderPresent(m_renderer);
 }
 
 void Renderer::flush(const DrawList& draw_list, const Viewport& viewport) {
-    SDL_Rect viewport_rect {viewport.area.x, viewport.area.y, viewport.area.w, viewport.area.h};
-    SDL_SetRenderViewport(m_renderer, &viewport_rect);
+    sdl::set_viewport(m_renderer, viewport.area);
 
     auto submit_batch = [this](SDL_Texture* texture) {
         const auto* base = reinterpret_cast<const std::byte*>(m_vertices.data());
@@ -80,12 +82,7 @@ void Renderer::flush(const DrawList& draw_list, const Viewport& viewport) {
             {           rect.x / texture_size.w, (rect.y + rect.h) / texture_size.h},
         };
 
-        SDL_FColor sdl_color {
-            static_cast<float>(command.color.r) / 255.f,
-            static_cast<float>(command.color.g) / 255.f,
-            static_cast<float>(command.color.b) / 255.f,
-            static_cast<float>(command.color.a) / 255.f,
-        };
+        const auto sdl_color = sdl::to_fcolor(command.color);
 
         const auto base_index = static_cast<DrawIndex>(m_vertices.size());
 

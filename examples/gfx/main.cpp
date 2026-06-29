@@ -2,15 +2,16 @@
 
 #include <msquared/core/colors.hpp>
 #include <msquared/engine/gfx/renderer.hpp>
+#include <msquared/sdl/window.hpp>
 
 #include <SDL3/SDL.h>
 
 int main(int /*argc*/, char* /*argv*/[]) {
     SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    SDL_CreateWindowAndRenderer("Graphics Example", 1280, 720, SDL_WINDOW_RESIZABLE, &window, &renderer);
+    msq::Size2i window_size(1280, 720);
+    auto [window,
+          renderer] = msq::sdl::create_window_and_renderer("Graphics Example", window_size, SDL_WINDOW_RESIZABLE);
 
     msq::Mesh mesh;
     mesh.vertices = {
@@ -24,11 +25,8 @@ int main(int /*argc*/, char* /*argv*/[]) {
     msq::MeshPool mesh_pool;
     auto mesh_handle = mesh_pool.add(&mesh);
 
-    msq::Renderer main_renderer(renderer, texture_pool, mesh_pool);
+    msq::Renderer main_renderer(renderer.get(), texture_pool, mesh_pool);
     main_renderer.set_clear_color(msq::colors::dark_gray);
-
-    msq::Size2i window_size;
-    SDL_GetWindowSize(window, &window_size.w, &window_size.h);
 
     msq::Camera world_camera;
     world_camera.center = msq::Point2f(window_size.w / 2, window_size.h / 2);
@@ -67,9 +65,6 @@ int main(int /*argc*/, char* /*argv*/[]) {
         main_renderer.flush(world_draw_list, world_viewport);
         main_renderer.end_frame();
     }
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
 
     SDL_Quit();
 
