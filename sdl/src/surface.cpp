@@ -2,22 +2,26 @@
 
 #include "msquared/sdl/surface.hpp"
 
+#include <SDL3_image/SDL_image.h>
+
 namespace msq::sdl {
 
-bool read_pixel(SDL_Surface* surface, int x, int y, SDL_Color& color) {
-    return SDL_ReadSurfacePixel(surface, x, y, &color.r, &color.g, &color.b, &color.a);
+Surface load_surface(const char* path) {
+    return Surface(IMG_Load(path));
 }
 
-bool write_pixel(SDL_Surface* surface, int x, int y, const SDL_Color& color) {
-    return SDL_WriteSurfacePixel(surface, x, y, color.r, color.g, color.b, color.a);
+Surface load_surface(const void* memory, std::size_t size) {
+    return Surface(IMG_Load_IO(SDL_IOFromConstMem(memory, static_cast<int>(size)), true));
 }
 
-bool read_pixel(SDL_Surface* surface, int x, int y, SDL_FColor& color) {
-    return SDL_ReadSurfacePixelFloat(surface, x, y, &color.r, &color.g, &color.b, &color.a);
+Color read_pixel(SDL_Surface* surface, const Point2i& p) {
+    Color color;
+    SDL_ReadSurfacePixel(surface, p.x, p.y, &color.r, &color.g, &color.b, &color.a);
+    return color;
 }
 
-bool write_pixel(SDL_Surface* surface, int x, int y, const SDL_FColor& color) {
-    return SDL_WriteSurfacePixelFloat(surface, x, y, color.r, color.g, color.b, color.a);
+void write_pixel(SDL_Surface* surface, const Point2i& p, const Color& color) {
+    SDL_WriteSurfacePixel(surface, p.x, p.y, color.r, color.g, color.b, color.a);
 }
 
 } // namespace msq::sdl

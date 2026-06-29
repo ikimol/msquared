@@ -4,6 +4,9 @@
 
 #include "msquared/sdl/detail/pointer.hpp"
 
+#include <msquared/core/color.hpp>
+#include <msquared/core/math/point2.hpp>
+
 #include <SDL3_ttf/SDL_ttf.h>
 
 namespace msq::sdl {
@@ -25,18 +28,12 @@ using Text = detail::Pointer<TTF_Text>;
 Text create_text(TTF_TextEngine* engine, TTF_Font* font, const char* text, std::size_t length);
 
 /// Get the color of the text
-bool get_text_color(TTF_Text* text, SDL_Color& color);
+Color get_text_color(TTF_Text* text);
 
 /// Set the color of the text
-bool set_text_color(TTF_Text* text, const SDL_Color& color);
-
-/// Get the color of the text
-bool get_text_color(TTF_Text* text, SDL_FColor& color);
-
-/// Set the color of the text
-bool set_text_color(TTF_Text* text, const SDL_FColor& color);
+void set_text_color(TTF_Text* text, const Color& color);
 
 /// Set the position of the text
-bool set_text_position(TTF_Text* text, const SDL_Point& p);
+bool set_text_position(TTF_Text* text, const Point2i& p);
 
 } // namespace msq::sdl

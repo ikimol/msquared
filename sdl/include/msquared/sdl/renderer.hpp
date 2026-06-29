@@ -3,9 +3,14 @@
 #pragma once
 
 #include "msquared/sdl/detail/pointer.hpp"
-#include "msquared/sdl/window.hpp"
+
+#include <msquared/core/color.hpp>
+#include <msquared/core/math/point2.hpp>
+#include <msquared/core/rect2.hpp>
 
 #include <SDL3/SDL_render.h>
+
+#include <optional>
 
 namespace msq::sdl {
 namespace detail {
@@ -26,37 +31,36 @@ using Renderer = detail::Pointer<SDL_Renderer>;
 Renderer create_renderer(SDL_Window* window, const char* name);
 
 /// Get the draw color as an SDL_Color
-bool get_draw_color(SDL_Renderer* renderer, SDL_Color& color);
+Color get_draw_color(SDL_Renderer* renderer);
 
 /// Set the draw color from an SDL_Color
-bool set_draw_color(SDL_Renderer* renderer, SDL_Color color);
+void set_draw_color(SDL_Renderer* renderer, const Color& color);
 
-/// Get the draw color as an SDL_FColor
-bool get_draw_color(SDL_Renderer* renderer, SDL_FColor& color);
+/// Get the active viewport
+Rect2i get_viewport(SDL_Renderer* renderer);
 
-/// Set the draw color from an SDL_FColor
-bool set_draw_color(SDL_Renderer* renderer, SDL_FColor color);
+/// Set a new viewport
+void set_viewport(SDL_Renderer* renderer, const Rect2i& rect);
 
-/// Draw an array of vertices
-bool render_vertices(SDL_Renderer* renderer, const SDL_Vertex* vertices, int num_vertices);
+/// Reset the active viewport to its default
+void reset_viewport(SDL_Renderer* renderer);
 
-/// Draw an array of indexed vertices
-bool render_vertices(SDL_Renderer* renderer,
-                     const SDL_Vertex* vertices,
-                     int num_vertices,
-                     const int* indices,
-                     int num_indices);
+/// Get the active clipping rectangle, if one is set
+std::optional<Rect2i> get_clip_rect(SDL_Renderer* renderer);
 
-/// Draw an array of vertices with a texture
-bool render_vertices(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Vertex* vertices, int num_vertices);
+/// Set a clipping rectangle
+void set_clip_rect(SDL_Renderer* renderer, const Rect2i& rect);
+
+/// Clear the active clipping rectangle
+void clear_clip_rect(SDL_Renderer* renderer);
 
 /// Draw some text for debugging purposes
-bool render_debug_text(SDL_Renderer* renderer, const SDL_FPoint& p, const char* str);
+void render_debug_text(SDL_Renderer* renderer, const Point2f& p, const char* str);
 
 /// Draw some formatted text for debugging purposes
 template <typename... Args>
-bool render_debug_text_format(SDL_Renderer* renderer, const SDL_FPoint& p, const char* fmt, Args&&... args) {
-    return SDL_RenderDebugTextFormat(renderer, p.x, p.y, fmt, std::forward<Args>(args)...);
+void render_debug_text_format(SDL_Renderer* renderer, const Point2f& p, const char* fmt, Args&&... args) {
+    SDL_RenderDebugTextFormat(renderer, p.x, p.y, fmt, std::forward<Args>(args)...);
 }
 
 } // namespace msq::sdl

@@ -19,4 +19,10 @@ struct Deleter<TTF_Font> {
 /// Alias for managed TTF_Font
 using Font = detail::Pointer<TTF_Font>;
 
+/// Load a font from a file
+Font load_font(const char* path, float font_size);
+
+/// Load a font from memory
+Font load_font(const void* memory, std::size_t size, float font_size);
+
 } // namespace msq::sdl

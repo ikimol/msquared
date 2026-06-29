@@ -4,6 +4,9 @@
 
 #include "msquared/sdl/detail/pointer.hpp"
 
+#include <msquared/core/color.hpp>
+#include <msquared/core/math/point2.hpp>
+
 #include <SDL3/SDL_surface.h>
 
 namespace msq::sdl {
@@ -21,16 +24,16 @@ using Surface = detail::Pointer<SDL_Surface>;
 
 // operations
 
+/// Load a surface from an image file
+Surface load_surface(const char* path);
+
+/// Load a surface from memory
+Surface load_surface(const void* memory, std::size_t size);
+
 /// Read the color value of a single pixel
-bool read_pixel(SDL_Surface* surface, int x, int y, SDL_Color& color);
+Color read_pixel(SDL_Surface* surface, const Point2i& p);
 
 /// Modify the color value of a single pixel
-bool write_pixel(SDL_Surface* surface, int x, int y, const SDL_Color& color);
-
-/// Read the color value of a single pixel
-bool read_pixel(SDL_Surface* surface, int x, int y, SDL_FColor& color);
-
-/// Modify the color value of a single pixel
-bool write_pixel(SDL_Surface* surface, int x, int y, const SDL_FColor& color);
+void write_pixel(SDL_Surface* surface, const Point2i& p, const Color& color);
 
 } // namespace msq::sdl

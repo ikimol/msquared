@@ -13,6 +13,7 @@ add_library(${MSQ_SDL_TARGET_NAME} STATIC)
 add_library(msq::sdl ALIAS ${MSQ_SDL_TARGET_NAME})
 
 target_sources(${MSQ_SDL_TARGET_NAME} PRIVATE
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/color.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/iostream.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/renderer.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/surface.cpp
@@ -27,7 +28,9 @@ msq_target_add_private_headers(${MSQ_SDL_TARGET_NAME})
 
 # link dependencies
 target_link_libraries(${MSQ_SDL_TARGET_NAME} PUBLIC
+                      msq::core
                       SDL3::SDL3
+                      SDL3_image::SDL3_image
                       SDL3_ttf::SDL3_ttf
                       )
 

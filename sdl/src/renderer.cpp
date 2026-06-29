@@ -8,40 +8,51 @@ Renderer create_renderer(SDL_Window* window, const char* name) {
     return Renderer(SDL_CreateRenderer(window, name));
 }
 
-bool get_draw_color(SDL_Renderer* renderer, SDL_Color& color) {
-    return SDL_GetRenderDrawColor(renderer, &color.r, &color.g, &color.b, &color.a);
+Color get_draw_color(SDL_Renderer* renderer) {
+    Color color;
+    SDL_GetRenderDrawColor(renderer, &color.r, &color.g, &color.b, &color.a);
+    return color;
 }
 
-bool set_draw_color(SDL_Renderer* renderer, SDL_Color color) {
-    return SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+void set_draw_color(SDL_Renderer* renderer, const Color& color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 }
 
-bool get_draw_color(SDL_Renderer* renderer, SDL_FColor& color) {
-    return SDL_GetRenderDrawColorFloat(renderer, &color.r, &color.g, &color.b, &color.a);
+Rect2i get_viewport(SDL_Renderer* renderer) {
+    SDL_Rect rect;
+    SDL_GetRenderViewport(renderer, &rect);
+    return Rect2i(rect.x, rect.y, rect.w, rect.h);
 }
 
-bool set_draw_color(SDL_Renderer* renderer, SDL_FColor color) {
-    return SDL_SetRenderDrawColorFloat(renderer, color.r, color.g, color.b, color.a);
+void set_viewport(SDL_Renderer* renderer, const Rect2i& rect) {
+    SDL_Rect r {rect.x, rect.y, rect.w, rect.h};
+    SDL_SetRenderViewport(renderer, &r);
 }
 
-bool render_vertices(SDL_Renderer* renderer, const SDL_Vertex* vertices, int num_vertices) {
-    return SDL_RenderGeometry(renderer, nullptr, vertices, num_vertices, nullptr, 0);
+void reset_viewport(SDL_Renderer* renderer) {
+    SDL_SetRenderViewport(renderer, nullptr);
 }
 
-bool render_vertices(SDL_Renderer* renderer,
-                     const SDL_Vertex* vertices,
-                     int num_vertices,
-                     const int* indices,
-                     int num_indices) {
-    return SDL_RenderGeometry(renderer, nullptr, vertices, num_vertices, indices, num_indices);
+std::optional<Rect2i> get_clip_rect(SDL_Renderer* renderer) {
+    if (SDL_RenderClipEnabled(renderer)) {
+        SDL_Rect rect;
+        SDL_GetRenderClipRect(renderer, &rect);
+        return Rect2i(rect.x, rect.y, rect.w, rect.h);
+    }
+    return std::nullopt;
 }
 
-bool render_vertices(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Vertex* vertices, int num_vertices) {
-    return SDL_RenderGeometry(renderer, texture, vertices, num_vertices, nullptr, 0);
+void set_clip_rect(SDL_Renderer* renderer, const Rect2i& rect) {
+    SDL_Rect r {rect.x, rect.y, rect.w, rect.h};
+    SDL_SetRenderClipRect(renderer, &r);
 }
 
-bool render_debug_text(SDL_Renderer* renderer, const SDL_FPoint& p, const char* str) {
-    return SDL_RenderDebugText(renderer, p.x, p.y, str);
+void clear_clip_rect(SDL_Renderer* renderer) {
+    SDL_SetRenderClipRect(renderer, nullptr);
+}
+
+void render_debug_text(SDL_Renderer* renderer, const Point2f& p, const char* str) {
+    SDL_RenderDebugText(renderer, p.x, p.y, str);
 }
 
 } // namespace msq::sdl

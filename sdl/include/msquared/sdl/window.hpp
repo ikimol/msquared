@@ -3,6 +3,10 @@
 #pragma once
 
 #include "msquared/sdl/detail/pointer.hpp"
+#include "msquared/sdl/renderer.hpp"
+
+#include <msquared/core/math/point2.hpp>
+#include <msquared/core/size2.hpp>
 
 #include <SDL3/SDL_video.h>
 
@@ -22,12 +26,15 @@ using Window = detail::Pointer<SDL_Window>;
 // operations
 
 /// Create a window
-Window create_window(const char* title, int w, int h, SDL_WindowFlags flags);
+Window create_window(const char* title, const Size2i& size, SDL_WindowFlags flags);
+
+/// Create a window and a renderer
+std::pair<Window, Renderer> create_window_and_renderer(const char* title, const Size2i& size, SDL_WindowFlags flags);
 
 /// Create a popup style window
-Window create_popup_window(SDL_Window* parent, int offset_x, int offset_y, int w, int h);
+Window create_popup_window(SDL_Window* parent, const Point2i& offset, const Size2i& size);
 
 /// Create a tooltip style window
-Window create_tooltip_window(SDL_Window* parent, int offset_x, int offset_y, int w, int h);
+Window create_tooltip_window(SDL_Window* parent, const Point2i& offset, const Size2i& size);
 
 } // namespace msq::sdl
