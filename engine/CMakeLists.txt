@@ -20,6 +20,12 @@ target_sources(${MSQ_ENGINE_TARGET_NAME} PRIVATE
                ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/texture_pool.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/viewport.cpp
                ${CMAKE_CURRENT_SOURCE_DIR}/src/imgui/interop.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/input/binding.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/input/input_map.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/input/input_state.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/input/keyboard.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/input/mouse.cpp
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/input/input_system.cpp
                )
 
 msq_target_add_public_headers(${MSQ_ENGINE_TARGET_NAME})
@@ -31,6 +37,7 @@ target_link_libraries(${MSQ_ENGINE_TARGET_NAME} PUBLIC
                       msq::ecs
                       msq::sdl
                       shard::algorithm
+                      shard::enums
                       ImGui
                       )
 
